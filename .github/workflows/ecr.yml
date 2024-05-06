@@ -52,6 +52,7 @@ jobs:
             --family nginx-task \
             --container-definitions '[{"name":"git-repo","image":"471112508188.dkr.ecr.us-east-1.amazonaws.com/git-repo","portMappings":[{"containerPort":80}]}]'
             --memory 2048 \
+            --memory-reservation 1042 \
      # Step to create ECS service
       - name: Create ECS Service
         run: |
