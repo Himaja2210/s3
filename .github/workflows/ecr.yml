@@ -61,5 +61,5 @@ jobs:
             --task-definition nginx-task \
             --desired-count 1 \
             --launch-type EC2 \
-            --region ${{ secrets.AWS_REGION }}
+            --region ${{ env.AWS_REGION }}
      
