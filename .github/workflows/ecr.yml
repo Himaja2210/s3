@@ -44,19 +44,19 @@ jobs:
           echo "image=$ECR_REGISTRY/git-repo:github.sha" >> $GITHUB_OUTPUT
       - name: Create ECS Cluster
         run: |
-          aws ecs create-cluster --cluster-name git-cluster
+          aws ecs create-cluster --cluster-name nginx-cluster
      # Step to register task definition
       - name: Register Task Definition
         run: |
           aws ecs register-task-definition \
             --family nginx-task \
             --container-definitions '[{"name":"git-repo","image":"471112508188.dkr.ecr.us-east-1.amazonaws.com/git-repo","portMappings":[{"containerPort":80}],"memoryReservation":128}]'
-            --memory-reservation 1024 \
+    
      # Step to create ECS service
       - name: Create ECS Service
         run: |
           aws ecs create-service \
-            --cluster git-cluster \
+            --cluster nginx-cluster \
             --service-name nginx-service \
             --task-definition nginx-task \
             --desired-count 1 \
@@ -66,6 +66,6 @@ jobs:
       - name: Wait for Service Stabilize
         run: |
           aws ecs wait services-stable \
-            --cluster git-cluster \
+            --cluster nginx-cluster \
             --services nginx-service \
             --region ${{ secrets.AWS_REGION }}
