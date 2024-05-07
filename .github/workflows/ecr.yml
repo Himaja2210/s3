@@ -61,7 +61,7 @@ jobs:
             --task-definition nginx-task \
             --desired-count 1 \
             --launch-type EC2 \
-            --region ${{ secrets.AWS_REGION }}
+            --region: ${{ secrets.AWS_REGION }}
      # Step to wait for service to stabilize
       - name: Wait for Service Stabilize
         run: |
